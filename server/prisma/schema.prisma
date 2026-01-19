@@ -1,0 +1,108 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// SQLite doesn't support Enums or Json, so we use String
+
+model User {
+  id            Int           @id @default(autoincrement())
+  email         String?       @unique
+  username      String?       @unique
+  password_hash String
+  role          String        @default("USER") // ADMIN, USER
+  name          String?
+  pin           String?       // Hashed PIN
+  is_active     Boolean       @default(true)
+  
+  // Detailed Profile
+  phone         String?
+  dob           DateTime?
+  ssn           String?
+  pay_rate      Float?
+  pay_type      String?       // HOURLY, SALARY
+  pto_balance   Float         @default(0)
+  recurring_schedule String?  // JSON string for weekly template
+  
+  org_id        Int?
+  organization  Organization? @relation(fields: [org_id], references: [id])
+  shifts        Shift[]
+  schedules     Schedule[]
+  audit_logs    AuditLog[]
+  time_requests TimeOffRequest[]
+
+  @@map("users")
+}
+
+model Organization {
+  id       Int    @id @default(autoincrement())
+  name     String
+  settings String? @default("{}") // JSON string
+  users    User[]
+
+  @@map("organizations")
+}
+
+model Shift {
+  id           Int         @id @default(autoincrement())
+  user_id      Int
+  user         User        @relation(fields: [user_id], references: [id])
+  start_time   DateTime    @default(now())
+  end_time     DateTime?
+  status       String      @default("active") // active, completed
+  time_entries TimeEntry[]
+
+  @@map("shifts")
+}
+
+model TimeEntry {
+  id           Int       @id @default(autoincrement())
+  shift_id     Int
+  shift        Shift     @relation(fields: [shift_id], references: [id])
+  type         String    // clock_in, clock_out
+  timestamp    DateTime  @default(now())
+  location_lat Float?
+  location_lng Float?
+
+  @@map("time_entries")
+}
+
+model AuditLog {
+  id          Int      @id @default(autoincrement())
+  entity_type String
+  entity_id   Int
+  action      String
+  changed_by  Int?
+  user        User?    @relation(fields: [changed_by], references: [id])
+  changes     String   // JSON string
+  timestamp   DateTime @default(now())
+
+  @@map("audit_logs")
+}
+
+model Schedule {
+  id         Int      @id @default(autoincrement())
+  user_id    Int
+  user       User     @relation(fields: [user_id], references: [id])
+  start_time DateTime
+  end_time   DateTime
+  notes      String?
+
+  @@map("schedules")
+}
+
+model TimeOffRequest {
+  id        Int      @id @default(autoincrement())
+  user_id   Int
+  user      User     @relation(fields: [user_id], references: [id])
+  start_date DateTime
+  end_date   DateTime
+  reason     String?
+  status     String   @default("PENDING") // PENDING, APPROVED, REJECTED
+  
+  @@map("time_off_requests")
+}
