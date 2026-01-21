@@ -1,0 +1,48 @@
+{
+    "Gateway": {
+        "title": "접속 모드 선택",
+        "staffLogin": "직원 로그인",
+        "staffDesc": "관리자 및 직원용 로그인",
+        "kioskMode": "키오스크 모드",
+        "kioskDesc": "출퇴근 기록용 공용 기기"
+    },
+    "Kiosk": {
+        "welcome": "키오스크 모드에 오신 것을 환영합니다"
+    },
+    "Landing": {
+        "heroTitle": "안전하고 신뢰할 수 있는 빠른 인증 시스템.",
+        "heroSubtitle": "Next.js 15로 구축된 차세대 보안 웹 애플리케이션을 경험하세요. 엔터프라이즈급 보안과 현대적인 디자인의 만남.",
+        "getStarted": "시작하기",
+        "learnMore": "더 알아보기",
+        "signIn": "로그인",
+        "footer": "© 2026 SecureApp Inc. All rights reserved."
+    },
+    "Auth": {
+        "welcomeBack": "환영합니다",
+        "signInSubtitle": "계정에 로그인하여 계속하세요",
+        "emailLabel": "이메일 주소",
+        "emailPlaceholder": "you@company.com",
+        "passwordLabel": "비밀번호",
+        "passwordPlaceholder": "••••••••",
+        "signInButton": "로그인",
+        "demoCredentials": "데모 자격 증명:",
+        "invalidCredentials": "자격 증명이 올바르지 않습니다. 다시 시도해주세요.",
+        "signUpTitle": "계정 생성",
+        "signUpSubtitle": "무료 계정으로 시작하세요",
+        "nameLabel": "이름",
+        "namePlaceholder": "홍길동",
+        "confirmPasswordLabel": "비밀번호 확인",
+        "signUpButton": "계정 생성",
+        "haveAccount": "이미 계정이 있으신가요?",
+        "signInLink": "로그인"
+    },
+    "Validation": {
+        "invalidEmail": "유효한 이메일 주소를 입력해주세요.",
+        "passwordTooShort": "비밀번호는 최소 8자 이상이어야 합니다."
+    },
+    "Dashboard": {
+        "title": "대시보드",
+        "welcome": "{name}님, 다시 오신 것을 환영합니다!",
+        "successMessage": "SecureApp에 성공적으로 인증되었습니다."
+    }
+}

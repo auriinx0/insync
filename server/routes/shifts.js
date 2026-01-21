@@ -35,12 +35,17 @@ router.post('/toggle', authenticateToken, async (req, res) => {
         if (activeShift) {
             // CLOCK OUT
             const shift = await prisma.$transaction(async (prisma) => {
+                const endTime = new Date();
+                const startTime = new Date(activeShift.start_time);
+                const durationHours = (endTime - startTime) / (1000 * 60 * 60);
+
                 // Update Shift
                 const updatedShift = await prisma.shift.update({
                     where: { id: activeShift.id },
                     data: {
-                        end_time: new Date(),
-                        status: 'completed'
+                        end_time: endTime,
+                        status: 'completed',
+                        total_hours: parseFloat(durationHours.toFixed(2))
                     }
                 });
 
@@ -149,14 +154,20 @@ router.get('/all', authenticateToken, requireManager, async (req, res) => {
 // POST: Manual Entry (Manager)
 router.post('/manual', authenticateToken, requireManager, async (req, res) => {
     const { user_id, start_time, end_time, notes } = req.body;
+
+    // CALCULATE DURATION
+    const start = new Date(start_time);
+    const end = new Date(end_time);
+    const durationHours = (end - start) / (1000 * 60 * 60);
+
     try {
         const newShift = await prisma.shift.create({
             data: {
                 user_id: parseInt(user_id),
-                start_time: new Date(start_time),
-                end_time: new Date(end_time),
+                start_time: start,
+                end_time: end,
                 status: 'completed',
-                // We create a generic TimeEntry for record-keeping if needed, but the Shift is the source of truth for hours
+                total_hours: parseFloat(durationHours.toFixed(2)) // <--- Added this
             }
         });
         res.json(newShift);
@@ -170,12 +181,19 @@ router.post('/manual', authenticateToken, requireManager, async (req, res) => {
 router.put('/:id', authenticateToken, requireManager, async (req, res) => {
     const { id } = req.params;
     const { start_time, end_time } = req.body;
+
+    // RE-CALCULATE DURATION
+    const start = new Date(start_time);
+    const end = new Date(end_time);
+    const durationHours = (end - start) / (1000 * 60 * 60);
+
     try {
         const updated = await prisma.shift.update({
             where: { id: parseInt(id) },
             data: {
-                start_time: new Date(start_time),
-                end_time: new Date(end_time)
+                start_time: start,
+                end_time: end,
+                total_hours: parseFloat(durationHours.toFixed(2)) // <--- Added this
             }
         });
         res.json(updated);

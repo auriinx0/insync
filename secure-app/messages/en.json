@@ -1,0 +1,48 @@
+{
+    "Gateway": {
+        "title": "Select Access Mode",
+        "staffLogin": "Staff Access",
+        "staffDesc": "Login for Managers and Employees",
+        "kioskMode": "Kiosk Mode",
+        "kioskDesc": "Shared device for clock-ins"
+    },
+    "Kiosk": {
+        "welcome": "Welcome to Kiosk Mode"
+    },
+    "Landing": {
+        "heroTitle": "Secure, Reliable, and Fast Authentication.",
+        "heroSubtitle": "Experience the next generation of secure web applications built with Next.js 15. Enterprise-grade security meets modern design.",
+        "getStarted": "Get Started",
+        "learnMore": "Learn More",
+        "signIn": "Sign In",
+        "footer": "© 2026 SecureApp Inc. All rights reserved."
+    },
+    "Auth": {
+        "welcomeBack": "Welcome Back",
+        "signInSubtitle": "Sign in to your account to continue",
+        "emailLabel": "Email Address",
+        "emailPlaceholder": "you@company.com",
+        "passwordLabel": "Password",
+        "passwordPlaceholder": "••••••••",
+        "signInButton": "Sign In",
+        "demoCredentials": "Demo Credentials:",
+        "invalidCredentials": "Invalid credentials. Please try again.",
+        "signUpTitle": "Create an Account",
+        "signUpSubtitle": "Get started with your free account",
+        "nameLabel": "Full Name",
+        "namePlaceholder": "John Doe",
+        "confirmPasswordLabel": "Confirm Password",
+        "signUpButton": "Create Account",
+        "haveAccount": "Already have an account?",
+        "signInLink": "Sign in"
+    },
+    "Validation": {
+        "invalidEmail": "Please enter a valid email address.",
+        "passwordTooShort": "Password must be at least 8 characters long."
+    },
+    "Dashboard": {
+        "title": "Dashboard",
+        "welcome": "Welcome back, {name}!",
+        "successMessage": "You have successfully authenticated into the SecureApp."
+    }
+}

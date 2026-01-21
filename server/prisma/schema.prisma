@@ -54,6 +54,7 @@ model Shift {
   start_time   DateTime    @default(now())
   end_time     DateTime?
   status       String      @default("active") // active, completed
+  total_hours  Float?      // Calculated duration in hours
   time_entries TimeEntry[]
 
   @@map("shifts")
